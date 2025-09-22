@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useMiniKit } from '@coinbase/minikit';
+import { useOnchainKit } from '@coinbase/onchainkit';
 import { ShakeDetector } from '@/components/ShakeDetector';
 import { LessonCard } from '@/components/LessonCard';
 import { ActionCard } from '@/components/ActionCard';
@@ -16,7 +16,7 @@ import { calculateDistance, formatDistance } from '@/lib/utils';
 import { MapPin, Users, BookOpen, Zap, Star, Clock } from 'lucide-react';
 
 export default function HomePage() {
-  const { context } = useMiniKit();
+  const { address, isConnected } = useOnchainKit();
   const { location, error: locationError, loading: locationLoading } = useGeolocation();
   const { lessons, loading: dataLoading, getRandomLessons, getNearbyLessons, getUserById } = useMockData();
   
@@ -26,14 +26,16 @@ export default function HomePage() {
   const [bookingLesson, setBookingLesson] = useState<string | null>(null);
   const [currentUser, setCurrentUser] = useState<User | null>(null);
 
-  // Initialize user from MiniKit context
+  // Initialize user from OnchainKit
   useEffect(() => {
-    if (context?.user) {
+    if (isConnected && address) {
+      // For now, create a mock user based on wallet address
+      // In production, this would fetch user data from your backend
       setCurrentUser({
-        userId: context.user.fid?.toString() || 'user_1',
-        farcasterId: context.user.fid?.toString(),
-        username: context.user.displayName || context.user.username || 'Anonymous',
-        profilePictureUrl: context.user.pfpUrl,
+        userId: address,
+        farcasterId: undefined, // Would be populated from Farcaster integration
+        username: `User ${address.slice(0, 6)}...${address.slice(-4)}`,
+        profilePictureUrl: undefined,
         bio: 'Learning enthusiast',
         skills: ['Learning'],
         rating: 5.0,
@@ -44,7 +46,7 @@ export default function HomePage() {
         }
       });
     }
-  }, [context, location]);
+  }, [isConnected, address, location]);
 
   // Load nearby lessons when location is available
   useEffect(() => {
