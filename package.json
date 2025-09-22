@@ -9,15 +9,16 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@coinbase/minikit": "^0.1.0",
-    "@coinbase/onchainkit": "^0.30.0",
+    "@coinbase/onchainkit": "^1.0.3",
+    "clsx": "^2.0.0",
+    "lucide-react": "^0.400.0",
     "next": "15.0.0",
+    "pino-pretty": "^10.0.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "lucide-react": "^0.400.0",
-    "clsx": "^2.0.0",
     "tailwind-merge": "^2.0.0",
-    "pino-pretty": "^10.0.0"
+    "viem": "^2.37.7",
+    "wagmi": "^2.17.2"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",

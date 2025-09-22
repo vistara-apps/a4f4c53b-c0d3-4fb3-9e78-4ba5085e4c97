@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useMiniKit } from '@coinbase/minikit';
+import { useMiniKit } from '@coinbase/onchainkit/minikit';
 import { ShakeDetector } from '@/components/ShakeDetector';
 import { LessonCard } from '@/components/LessonCard';
 import { ActionCard } from '@/components/ActionCard';
