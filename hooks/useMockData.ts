@@ -100,28 +100,45 @@ export function useMockData() {
   const [lessons, setLessons] = useState<MicroLesson[]>([]);
   const [loading, setLoading] = useState(true);
 
+  // Fetch data from API
   useEffect(() => {
-    // Simulate API loading delay
-    const timer = setTimeout(() => {
-      // Generate mock users
-      const mockUsers = Array.from({ length: 20 }, (_, i) => generateMockUser(`user_${i + 1}`));
-      
-      // Generate expert profiles for some users
-      const mockExperts = mockUsers.slice(0, 15).map(user => generateMockExpertProfile(user.userId));
-      
-      // Generate lessons
-      const mockLessons = Array.from({ length: 30 }, (_, i) => {
-        const randomExpert = mockUsers[Math.floor(Math.random() * 15)];
-        return generateMockLesson(`lesson_${i + 1}`, randomExpert);
-      });
+    const fetchData = async () => {
+      try {
+        setLoading(true);
 
-      setUsers(mockUsers);
-      setExperts(mockExperts);
-      setLessons(mockLessons);
-      setLoading(false);
-    }, 1000);
+        // Fetch users
+        const usersResponse = await fetch('/api/users');
+        if (usersResponse.ok) {
+          const usersData = await usersResponse.json();
+          setUsers(usersData);
+        }
 
-    return () => clearTimeout(timer);
+        // Fetch lessons
+        const lessonsResponse = await fetch('/api/lessons');
+        if (lessonsResponse.ok) {
+          const lessonsData = await lessonsResponse.json();
+          setLessons(lessonsData);
+        }
+
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        // Fallback to mock data if API fails
+        const mockUsers = Array.from({ length: 20 }, (_, i) => generateMockUser(`user_${i + 1}`));
+        const mockExperts = mockUsers.slice(0, 15).map(user => generateMockExpertProfile(user.userId));
+        const mockLessons = Array.from({ length: 30 }, (_, i) => {
+          const randomExpert = mockUsers[Math.floor(Math.random() * 15)];
+          return generateMockLesson(`lesson_${i + 1}`, randomExpert);
+        });
+
+        setUsers(mockUsers);
+        setExperts(mockExperts);
+        setLessons(mockLessons);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
   }, []);
 
   const getRandomLessons = (count: number = 3) => {

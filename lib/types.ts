@@ -3,21 +3,20 @@ export interface User {
   farcasterId?: string;
   username: string;
   profilePictureUrl?: string;
-  bio?: string;
+  bio: string;
   skills: string[];
   rating: number;
-  location: {
+  location?: {
     lat: number;
     lng: number;
-    address?: string;
+    address: string;
   };
 }
 
 export interface ExpertProfile {
   userId: string;
   expertise: string[];
-  availability: 'available' | 'busy' | 'offline';
-  videoUrl?: string;
+  availability: string;
   hourlyRate: number;
   rating: number;
 }
@@ -33,7 +32,9 @@ export interface MicroLesson {
   locationTag?: string;
   isLive: boolean;
   recordingUrl?: string;
-  expert?: User;
+  createdAt?: Date;
+  updatedAt?: Date;
+  expert?: ExpertProfile & { user: User };
 }
 
 export interface Session {
@@ -43,10 +44,15 @@ export interface Session {
   expertUserId: string;
   startTime: Date;
   endTime?: Date;
-  status: 'pending' | 'active' | 'completed' | 'cancelled';
+  status: 'pending' | 'confirmed' | 'completed' | 'cancelled';
   paymentStatus: 'pending' | 'paid' | 'refunded';
   rating?: number;
   review?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+  lesson?: MicroLesson;
+  learner?: User;
+  expert?: User;
 }
 
 export interface Notification {
@@ -57,8 +63,9 @@ export interface Notification {
   readStatus: boolean;
 }
 
-export interface LocationData {
+export interface Location {
   lat: number;
   lng: number;
-  accuracy?: number;
+  address: string;
 }
+
