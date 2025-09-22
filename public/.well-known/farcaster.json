@@ -1,0 +1,30 @@
+{
+  "accountAssociation": {
+    "header": "",
+    "payload": "",
+    "signature": ""
+  },
+  "frame": {
+    "version": "1",
+    "name": "SkillShake",
+    "subtitle": "Built with Zara",
+    "description": "SkillShake is a Base Mini App built with Zara.",
+    "iconUrl": "https://0co.to/images/zara-2.png",
+    "homeUrl": "https://a4f4c53bc0d34fb39e784ba5085e4c97-yz27.vercel.app",
+    "splashImageUrl": "https://a4f4c53bc0d34fb39e784ba5085e4c97-yz27.vercel.app/splash.png",
+    "splashBackgroundColor": "#000000",
+    "heroImageUrl": "https://a4f4c53bc0d34fb39e784ba5085e4c97-yz27.vercel.app/image.png",
+    "tagline": "SkillShake",
+    "screenshotUrls": [
+      "https://a4f4c53bc0d34fb39e784ba5085e4c97-yz27.vercel.app/screenshot.png",
+      "https://a4f4c53bc0d34fb39e784ba5085e4c97-yz27.vercel.app/screenshot.png"
+    ],
+    "primaryCategory": "social",
+    "tags": [
+      "base",
+      "miniapp",
+      "onchainkit"
+    ],
+    "webhookUrl": "https://a4f4c53bc0d34fb39e784ba5085e4c97-yz27.vercel.app/api/webhook"
+  }
+}
